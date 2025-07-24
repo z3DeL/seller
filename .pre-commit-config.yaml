@@ -1,0 +1,26 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: bash -c 'python3 -m mypy --ignore-missing-imports --no-strict-optional . || true'
+        language: system
+        files: \.py$
+        pass_filenames: false
+        always_run: true
+      
+      - id: pylint
+        name: pylint
+        entry: python3 -m pylint
+        language: system
+        files: \.py$
+        args: [
+          "-rn", # Only display messages
+          "-sn", # Don't display the score
+          "--exit-zero", # Don't fail on any issues
+        ] 

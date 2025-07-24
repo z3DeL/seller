@@ -1,0 +1,48 @@
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+# A regex preceded by `^/` will apply only to files and directories
+# in the root of the project.
+^/setup.py
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["seller"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false          # Не требовать типы везде (пока)
+disallow_incomplete_defs = false       # Разрешить частичную типизацию
+check_untyped_defs = true              # Проверять нетипизированный код
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true            # Предупреждать об избыточных cast
+warn_unused_ignores = true             # Предупреждать о неиспользуемых # type: ignore
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+ignore_missing_imports = true          # Игнорировать отсутствующие типы в библиотеках
+
+# Постепенное ужесточение - раскомментировать позже:
+# disallow_untyped_defs = true         # Требовать типы везде
+# disallow_any_generics = true         # Запретить Any в generics
+# no_implicit_optional = true          # Требовать явное Optional
+
+[tool.coverage.run]
+source = ["seller"]
+omit = ["tests/*", "venv/*", ".venv/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError"
+] 
